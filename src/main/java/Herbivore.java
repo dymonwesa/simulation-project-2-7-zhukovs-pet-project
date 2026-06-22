@@ -1,2 +1,10 @@
-public class Herbivore {
+public class Herbivore extends Creature{
+
+
+
+    @Override
+    void makeMove(){
+
+    }
+
 }
