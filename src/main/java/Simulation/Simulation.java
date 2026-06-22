@@ -3,7 +3,9 @@ package Simulation;
 import Entity.Creature;
 import Entity.Entity;
 import Position.Position;
+import Entity.Environment;
 
+import java.sql.SQLOutput;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -25,6 +27,8 @@ public class Simulation {
     public Simulation(){
         this.maxWidth = 10;
         this.maxHeight = 10;
+        this.sizeOfArea = maxWidth * maxHeight;
+        this.WorldMap = new LinkedHashMap<>();
     }
 
     public int getMaxWidth() {
@@ -48,7 +52,16 @@ public class Simulation {
 
     public void fullEmptyMap(){
         for (int i = 1; i <= sizeOfArea; i++ ){
-            WorldMap
+            WorldMap.put(i, new Environment());
+        }
+    }
+
+    public void printMap(){
+        for(int i = 1; i <= sizeOfArea; i++){
+            if (i % maxWidth == 1){
+                System.out.println();
+            }
+            System.out.print(WorldMap.get(i).toCell() + " ");
         }
     }
 

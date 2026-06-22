@@ -15,10 +15,15 @@ public class Environment extends Entity{
         return environmentCounter;
     }
 
-    String toCell(){
+    @Override
+    public String toCell(){
         return "..";
     }
 
+    @Override
+    public String toString() {
+        return "..";
+    }
 }
 
 

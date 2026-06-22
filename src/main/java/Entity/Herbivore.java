@@ -9,4 +9,9 @@ public class Herbivore extends Creature {
 
     }
 
+    @Override
+    public String toCell(){
+        return " ";
+    }
+
 }

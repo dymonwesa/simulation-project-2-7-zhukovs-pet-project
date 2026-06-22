@@ -1,8 +1,13 @@
 package Entity;
 
 public abstract class Entity {
+    private static int entityCounter = 0;
 
-    abstract String toCell();
+    public Entity() {
+        entityCounter++;
+    }
+
+    public abstract String toCell();
 
 
 

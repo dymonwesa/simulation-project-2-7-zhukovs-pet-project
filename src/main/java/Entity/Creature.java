@@ -30,7 +30,8 @@ public class Creature extends Entity {
 
     }
 
-    String toCell(){
+    @Override
+    public String toCell(){
         return " ";
     }
 }
