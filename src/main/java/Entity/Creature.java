@@ -1,3 +1,5 @@
+package Entity;
+
 public class Creature extends Entity {
     private int healPoint;
     private int speed;

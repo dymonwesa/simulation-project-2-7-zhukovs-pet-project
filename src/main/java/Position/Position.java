@@ -1,3 +1,5 @@
+package Position;
+
 public class Position {
     private int x;
     private int y;
@@ -29,4 +31,7 @@ public class Position {
     public void setY(int y) {
         this.y = y;
     }
+
+
+
 }

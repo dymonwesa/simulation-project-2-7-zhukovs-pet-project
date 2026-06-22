@@ -1,4 +1,8 @@
-import java.awt.Point;
+package Simulation;
+
+import Entity.Creature;
+import Position.Position;
+
 import java.util.HashMap;
 
 public class Simulation {
@@ -31,6 +35,7 @@ public class Simulation {
     public void setMaxHeight(int maxHeight) {
         this.maxHeight = maxHeight;
     }
+
 
     HashMap<Position, Creature> WorldMap = new HashMap<>();
 
