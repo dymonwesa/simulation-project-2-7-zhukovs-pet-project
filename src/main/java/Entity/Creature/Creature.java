@@ -1,4 +1,6 @@
-package Entity;
+package Entity.Creature;
+
+import Entity.Entity;
 
 public class Creature extends Entity {
     private int healPoint;

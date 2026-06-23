@@ -13,6 +13,7 @@ public class WorldMap {
     private int heightOfMap;
 
 
+
     public WorldMap(int widthOfMap, int heightOfMap) {
         this.worldMap = new HashMap<Position, Entity>();
         this.widthOfMap = widthOfMap;
@@ -33,6 +34,11 @@ public class WorldMap {
         worldMap.remove(position, entity);
     }
 
+    public String getCellOfMap(Position position){
+        return worldMap.get(position).toCell();
+    }
+
+
 
 
 
@@ -41,40 +47,6 @@ public class WorldMap {
 
 
     //-----------------------edit
-    public void fullEmptyMap(){
-        for (int i = 1; i <= sizeOfArea; i++ ){
-            WorldMap.put(i, new Environment());
-        }
-    }
-    public void putRandomHerbivore(){
-        Random random = new Random();
-        for (int i = 0; i < sizeOfArea / 70; i++){
-            int rNumber = random.nextInt(sizeOfArea);
-            WorldMap.put(rNumber, new Herbivore());
-        }
-    }
 
-    public void putRandomPredator(){
-        Random random = new Random();
-        for (int i = 0; i < sizeOfArea / 70; i++){
-            int rNumber = random.nextInt(sizeOfArea);
-            WorldMap.put(rNumber, new Predator());
-        }
-    }
-
-    public void generateRandomWorldMap(){
-        fullEmptyMap();
-        putRandomHerbivore();
-        putRandomPredator();
-    }
-
-    public void printMap(){
-        for(int i = 1; i <= sizeOfArea; i++){
-            if (i % maxWidth == 1){
-                System.out.println();
-            }
-            System.out.print(WorldMap.get(i).toCell() + " ");
-        }
-    }
 }
 

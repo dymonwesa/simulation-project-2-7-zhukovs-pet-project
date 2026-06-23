@@ -1,17 +1,18 @@
-package Entity;
+package Entity.Creature.Animals;
+
+import Entity.Creature.*;
 
 public class Herbivore extends Creature {
 
 
 
-    @Override
-    void makeMove(){
 
+    void makeMove(){
     }
 
     @Override
     public String toCell(){
-        return "He";
+        return "🐇 ";
     }
 
 }

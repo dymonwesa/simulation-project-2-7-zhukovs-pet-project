@@ -231,10 +231,10 @@ FILE: ./src/main/java/Simulation/Simulation.java
 ========================================
 package Simulation;
 
-import Entity.Creature;
+import Entity.Creature.Creature;
 import Entity.Entity;
 import Position.Position;
-import Entity.Environment;
+import Entity.Environment.Environment;
 import Entity.*;
 import WorldMap.WorldMap;
 
