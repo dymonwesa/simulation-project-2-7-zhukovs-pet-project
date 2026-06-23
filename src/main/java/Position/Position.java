@@ -10,10 +10,6 @@ public class Position {
     public Position(int x, int y) {
         this.x = x;
         this.y = y;
-
-
-
-
     }
 
     public int getX() {
@@ -31,6 +27,9 @@ public class Position {
     public void setY(int y) {
         this.y = y;
     }
+
+
+
 
 
 

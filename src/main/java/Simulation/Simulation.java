@@ -4,10 +4,11 @@ import Entity.Creature;
 import Entity.Entity;
 import Position.Position;
 import Entity.Environment;
-
+import Entity.*;
 import java.sql.SQLOutput;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Random;
 
 public class Simulation {
     private int maxWidth;
@@ -54,6 +55,27 @@ public class Simulation {
         for (int i = 1; i <= sizeOfArea; i++ ){
             WorldMap.put(i, new Environment());
         }
+    }
+    public void putRandomHerbivore(){
+        Random random = new Random();
+        for (int i = 0; i < sizeOfArea / 70; i++){
+            int rNumber = random.nextInt(sizeOfArea);
+            WorldMap.put(rNumber, new Herbivore());
+        }
+    }
+
+    public void putRandomPredator(){
+        Random random = new Random();
+        for (int i = 0; i < sizeOfArea / 70; i++){
+            int rNumber = random.nextInt(sizeOfArea);
+            WorldMap.put(rNumber, new Predator());
+        }
+    }
+
+    public void generateRandomWorldMap(){
+        fullEmptyMap();
+        putRandomHerbivore();
+        putRandomPredator();
     }
 
     public void printMap(){
