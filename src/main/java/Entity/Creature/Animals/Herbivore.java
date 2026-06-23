@@ -5,8 +5,6 @@ import Entity.Creature.*;
 public class Herbivore extends Creature {
 
 
-
-
     void makeMove(){
     }
 
