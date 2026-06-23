@@ -155,10 +155,13 @@ FILE: ./src/main/java/Position/Position.java
 ========================================
 package Position;
 
+import java.util.Objects;
+
 public class Position {
     private int x;
     private int y;
-
+    private int maxX;
+    private int maxY;
 
 
 
@@ -183,11 +186,44 @@ public class Position {
         this.y = y;
     }
 
+    public void setMaxX(int maxX) {
+        this.maxX = maxX;
+    }
+
+    public void setMaxY(int maxY) {
+        this.maxY = maxY;
+    }
+
+    public int getMaxX() {
+        return maxX;
+    }
+
+    public int getMaxY() {
+        return maxY;
+    }
 
 
 
+    public Position goNextPosition(Position position){
+        if(position.x<getMaxX()){
+            position.x +=1;
+        } else {
+            position.y +=1;
+        }
+        return position;
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Position position = (Position) o;
+        return x == position.x && y == position.y;
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
 }
 
 ========================================
@@ -200,6 +236,8 @@ import Entity.Entity;
 import Position.Position;
 import Entity.Environment;
 import Entity.*;
+import WorldMap.WorldMap;
+
 import java.sql.SQLOutput;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -210,13 +248,13 @@ public class Simulation {
     private int maxHeight;
     private int sizeOfArea;
 
-    private LinkedHashMap<Integer, Entity> WorldMap;
+    WorldMap worldMap;
 
     public Simulation(int maxWidth, int maxHeight) {
         this.maxWidth = maxWidth;
         this.maxHeight = maxHeight;
         this.sizeOfArea = maxWidth * maxHeight;
-        this.WorldMap = new LinkedHashMap<>();
+        this.worldMap = new WorldMap();
 
     }
 
@@ -224,7 +262,7 @@ public class Simulation {
         this.maxWidth = 10;
         this.maxHeight = 10;
         this.sizeOfArea = maxWidth * maxHeight;
-        this.WorldMap = new LinkedHashMap<>();
+        this.worldMap = new WorldMap();
     }
 
     public int getMaxWidth() {
@@ -286,4 +324,85 @@ public class Simulation {
 
 
 }
+
+========================================
+FILE: ./src/main/java/WorldMap/WorldMap.java
+========================================
+package WorldMap;
+
+import Entity.*;
+import Position.Position;
+
+import java.util.HashMap;
+import java.util.Random;
+
+public class WorldMap {
+
+    private HashMap<Position, Entity> worldMap;
+
+
+    public WorldMap() {
+        this.worldMap = new HashMap<Position, Entity>();
+    }
+
+    public  void addEntity(Position position, Entity entity){
+        worldMap.put(position,entity);
+    }
+
+    public void removeEntity(Position position, Entity entity){
+        worldMap.remove(position, entity);
+    }
+
+    public void addHerbivore(Position position, Herbivore herbivore){
+        worldMap.put(position,herbivore);
+    }
+
+    public void removeHerbivore(Position position, Herbivore herbivore){
+        worldMap.remove(position, herbivore);
+    }
+
+
+
+
+
+
+
+    //-----------------------edit
+    public void fullEmptyMap(){
+        for (int i = 1; i <= sizeOfArea; i++ ){
+            WorldMap.put(i, new Environment());
+        }
+    }
+    public void putRandomHerbivore(){
+        Random random = new Random();
+        for (int i = 0; i < sizeOfArea / 70; i++){
+            int rNumber = random.nextInt(sizeOfArea);
+            WorldMap.put(rNumber, new Herbivore());
+        }
+    }
+
+    public void putRandomPredator(){
+        Random random = new Random();
+        for (int i = 0; i < sizeOfArea / 70; i++){
+            int rNumber = random.nextInt(sizeOfArea);
+            WorldMap.put(rNumber, new Predator());
+        }
+    }
+
+    public void generateRandomWorldMap(){
+        fullEmptyMap();
+        putRandomHerbivore();
+        putRandomPredator();
+    }
+
+    public void printMap(){
+        for(int i = 1; i <= sizeOfArea; i++){
+            if (i % maxWidth == 1){
+                System.out.println();
+            }
+            System.out.print(WorldMap.get(i).toCell() + " ");
+        }
+    }
+}
+
 

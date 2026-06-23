@@ -13,83 +13,15 @@ import java.util.LinkedHashMap;
 import java.util.Random;
 
 public class Simulation {
-    private int maxWidth;
-    private int maxHeight;
-    private int sizeOfArea;
-
     WorldMap worldMap;
 
-    public Simulation(int maxWidth, int maxHeight) {
-        this.maxWidth = maxWidth;
-        this.maxHeight = maxHeight;
-        this.sizeOfArea = maxWidth * maxHeight;
-        this.worldMap = new WorldMap();
-
+    public Simulation(int widthOfMap, int heightOfMap) {
+        this.worldMap = new WorldMap(widthOfMap, heightOfMap);
     }
 
-    public Simulation(){
-        this.maxWidth = 10;
-        this.maxHeight = 10;
-        this.sizeOfArea = maxWidth * maxHeight;
+    public Simulation() {
         this.worldMap = new WorldMap();
     }
-
-    public int getMaxWidth() {
-        return maxWidth;
-    }
-
-    public void setMaxWidth(int maxWidth) {
-        this.maxWidth = maxWidth;
-    }
-
-    public int getMaxHeight() {
-        return maxHeight;
-    }
-
-    public void setMaxHeight(int maxHeight) {
-        this.maxHeight = maxHeight;
-    }
-
-
-
-
-    public void fullEmptyMap(){
-        for (int i = 1; i <= sizeOfArea; i++ ){
-            WorldMap.put(i, new Environment());
-        }
-    }
-    public void putRandomHerbivore(){
-        Random random = new Random();
-        for (int i = 0; i < sizeOfArea / 70; i++){
-            int rNumber = random.nextInt(sizeOfArea);
-            WorldMap.put(rNumber, new Herbivore());
-        }
-    }
-
-    public void putRandomPredator(){
-        Random random = new Random();
-        for (int i = 0; i < sizeOfArea / 70; i++){
-            int rNumber = random.nextInt(sizeOfArea);
-            WorldMap.put(rNumber, new Predator());
-        }
-    }
-
-    public void generateRandomWorldMap(){
-        fullEmptyMap();
-        putRandomHerbivore();
-        putRandomPredator();
-    }
-
-    public void printMap(){
-        for(int i = 1; i <= sizeOfArea; i++){
-            if (i % maxWidth == 1){
-                System.out.println();
-            }
-            System.out.print(WorldMap.get(i).toCell() + " ");
-        }
-    }
-
-
 
 
 }

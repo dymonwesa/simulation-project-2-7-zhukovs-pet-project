@@ -9,10 +9,20 @@ import java.util.Random;
 public class WorldMap {
 
     private HashMap<Position, Entity> worldMap;
+    private int widthOfMap;
+    private int heightOfMap;
 
+
+    public WorldMap(int widthOfMap, int heightOfMap) {
+        this.worldMap = new HashMap<Position, Entity>();
+        this.widthOfMap = widthOfMap;
+        this.heightOfMap = heightOfMap;
+    }
 
     public WorldMap() {
         this.worldMap = new HashMap<Position, Entity>();
+        this.widthOfMap = 25;
+        this.heightOfMap = 25;
     }
 
     public  void addEntity(Position position, Entity entity){
@@ -23,13 +33,6 @@ public class WorldMap {
         worldMap.remove(position, entity);
     }
 
-    public void addHerbivore(Position position, Herbivore herbivore){
-        worldMap.put(position,herbivore);
-    }
-
-    public void removeHerbivore(Position position, Herbivore herbivore){
-        worldMap.remove(position, herbivore);
-    }
 
 
 
