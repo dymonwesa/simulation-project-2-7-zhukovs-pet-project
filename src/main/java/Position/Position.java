@@ -5,7 +5,8 @@ import java.util.Objects;
 public class Position {
     private int x;
     private int y;
-
+    private int maxX;
+    private int maxY;
 
 
 
@@ -30,6 +31,32 @@ public class Position {
         this.y = y;
     }
 
+    public void setMaxX(int maxX) {
+        this.maxX = maxX;
+    }
+
+    public void setMaxY(int maxY) {
+        this.maxY = maxY;
+    }
+
+    public int getMaxX() {
+        return maxX;
+    }
+
+    public int getMaxY() {
+        return maxY;
+    }
+
+
+
+    public Position goNextPosition(Position position){
+        if(position.x<getMaxX()){
+            position.x +=1;
+        } else {
+            position.y +=1;
+        }
+        return position;
+    }
 
     @Override
     public boolean equals(Object o) {
