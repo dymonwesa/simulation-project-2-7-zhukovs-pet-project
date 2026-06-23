@@ -1,6 +1,7 @@
 package WorldMap;
 
 import Entity.*;
+import Entity.Environment.EmptyCell;
 import Position.Position;
 
 import java.util.HashMap;
@@ -20,6 +21,8 @@ public class WorldMap {
         this.widthOfMap = widthOfMap;
         this.heightOfMap = heightOfMap;
         this.sizeOfMap = widthOfMap * heightOfMap;
+        fillEmptyMap();
+
     }
 
     public WorldMap() {
@@ -27,9 +30,24 @@ public class WorldMap {
         this.widthOfMap = 25;
         this.heightOfMap = 25;
         this.sizeOfMap = 25*25;
+        fillEmptyMap();
     }
 
-    public  void addEntity(Position position, Entity entity){
+    public int getWidthOfMap() {
+        return widthOfMap;
+    }
+
+    public int getHeightOfMap() {
+        return heightOfMap;
+    }
+
+    public int getSizeOfMap() {
+        return sizeOfMap;
+    }
+
+
+
+    public void addEntity(Position position, Entity entity){
         worldMap.put(position,entity);
     }
 
@@ -41,16 +59,23 @@ public class WorldMap {
         return worldMap.get(position).toCell();
     }
 
+    public void fillEmptyMap(){
+        for (int columns = 1; columns <=getWidthOfMap(); columns++){
+            for (int rows = 1;rows<=getHeightOfMap();rows++){
+                addEntity(new Position(columns,rows),new EmptyCell());
+            }
+        }
+    }
 
-
-
-
-
-
-
-
-
-    //-----------------------edit
+    public void printWorldMap(){
+        for (int columns = 1; columns <=getWidthOfMap(); columns++){
+            System.out.println();
+            for (int rows = 1;rows<=getHeightOfMap();rows++){
+                Position position = new Position(columns, rows);
+                System.out.print(worldMap.get(position).toCell() + " ");
+            }
+        }
+    }
 
 }
 

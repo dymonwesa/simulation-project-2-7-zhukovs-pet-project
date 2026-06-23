@@ -13,5 +13,9 @@ public class Simulation {
         this.worldMap = new WorldMap();
     }
 
+    public void printResult(){
+        worldMap.printWorldMap();
+    }
+
 
 }
