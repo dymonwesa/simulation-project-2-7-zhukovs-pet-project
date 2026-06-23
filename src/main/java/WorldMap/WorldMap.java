@@ -11,7 +11,7 @@ public class WorldMap {
     private HashMap<Position, Entity> worldMap;
     private int widthOfMap;
     private int heightOfMap;
-    private int va
+    private int sizeOfMap;
 
 
 
@@ -19,12 +19,14 @@ public class WorldMap {
         this.worldMap = new HashMap<Position, Entity>();
         this.widthOfMap = widthOfMap;
         this.heightOfMap = heightOfMap;
+        this.sizeOfMap = widthOfMap * heightOfMap;
     }
 
     public WorldMap() {
         this.worldMap = new HashMap<Position, Entity>();
         this.widthOfMap = 25;
         this.heightOfMap = 25;
+        this.sizeOfMap = 25*25;
     }
 
     public  void addEntity(Position position, Entity entity){
