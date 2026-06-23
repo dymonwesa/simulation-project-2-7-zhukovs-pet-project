@@ -11,6 +11,7 @@ public class WorldMap {
     private HashMap<Position, Entity> worldMap;
     private int widthOfMap;
     private int heightOfMap;
+    private int va
 
 
 
@@ -37,6 +38,7 @@ public class WorldMap {
     public String getCellOfMap(Position position){
         return worldMap.get(position).toCell();
     }
+
 
 
 
