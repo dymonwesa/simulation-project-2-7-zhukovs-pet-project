@@ -9,5 +9,11 @@ public class Predator extends Creature {
 
 
 
+    public void getMove(){
+
+    }
+
+
+
 
 }
