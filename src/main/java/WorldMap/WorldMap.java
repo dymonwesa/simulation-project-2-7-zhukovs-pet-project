@@ -1,7 +1,11 @@
 package WorldMap;
 
 import Entity.*;
+import Entity.Creature.Animals.Herbivore;
+import Entity.Creature.Animals.Predator;
 import Entity.Environment.EmptyCell;
+import Entity.Environment.Grass;
+import Entity.Environment.Rock;
 import Position.Position;
 
 import java.util.HashMap;
@@ -13,6 +17,7 @@ public class WorldMap {
     private int widthOfMap;
     private int heightOfMap;
     private int sizeOfMap;
+    Random random = new Random();
 
 
 
@@ -21,8 +26,7 @@ public class WorldMap {
         this.widthOfMap = widthOfMap;
         this.heightOfMap = heightOfMap;
         this.sizeOfMap = widthOfMap * heightOfMap;
-        fillEmptyMap();
-
+        generateRandomObjectsOnMap();
     }
 
     public WorldMap() {
@@ -30,7 +34,7 @@ public class WorldMap {
         this.widthOfMap = 25;
         this.heightOfMap = 25;
         this.sizeOfMap = 25*25;
-        fillEmptyMap();
+        generateRandomObjectsOnMap();
     }
 
     public int getWidthOfMap() {
@@ -63,6 +67,40 @@ public class WorldMap {
         for (int columns = 1; columns <=getWidthOfMap(); columns++){
             for (int rows = 1;rows<=getHeightOfMap();rows++){
                 addEntity(new Position(columns,rows),new EmptyCell());
+            }
+        }
+    }
+
+    public void generateRandomObjectsOnMap(){
+        fillEmptyMap();
+        fillRandomEnvironmentOnMap();
+        fillRandomAnimalsOnMap();
+    }
+
+    public void fillRandomAnimalsOnMap(){
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 2; j++) {
+                int columns = random.nextInt(1,getWidthOfMap()+1);
+                int rows = random.nextInt(1,getHeightOfMap()+1);
+                if(j==0){
+                    worldMap.put(new Position(columns,rows), new Herbivore());
+                } else if (j==1) {
+                    worldMap.put(new Position(columns,rows), new Predator());
+                }
+            }
+        }
+    }
+
+    public void fillRandomEnvironmentOnMap(){
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 2; j++) {
+                int columns = random.nextInt(1, getWidthOfMap() + 1);
+                int rows = random.nextInt(1, getHeightOfMap() + 1);
+                if (j == 0) {
+                    worldMap.put(new Position(columns, rows), new Grass());
+                } else if (j == 1) {
+                    worldMap.put(new Position(columns, rows), new Rock());
+                }
             }
         }
     }

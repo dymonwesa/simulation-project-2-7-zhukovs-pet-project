@@ -6,6 +6,6 @@ public class EmptyCell extends Entity {
     
     @Override
     public String toCell() {
-        return "..";
+        return "◾️ ";
     }
 }
