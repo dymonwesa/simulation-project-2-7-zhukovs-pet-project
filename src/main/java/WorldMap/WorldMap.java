@@ -20,7 +20,6 @@ public class WorldMap {
     Random random = new Random();
 
 
-
     public WorldMap(int widthOfMap, int heightOfMap) {
         this.worldMap = new HashMap<Position, Entity>();
         this.widthOfMap = widthOfMap;
@@ -33,7 +32,7 @@ public class WorldMap {
         this.worldMap = new HashMap<Position, Entity>();
         this.widthOfMap = 25;
         this.heightOfMap = 25;
-        this.sizeOfMap = 25*25;
+        this.sizeOfMap = 25 * 25;
         generateRandomObjectsOnMap();
     }
 
@@ -50,65 +49,80 @@ public class WorldMap {
     }
 
 
-
-    public void addEntity(Position position, Entity entity){
-        worldMap.put(position,entity);
+    public void addEntity(Position position, Entity entity) {
+        worldMap.put(position, entity);
     }
 
-    public void removeEntity(Position position, Entity entity){
+    public void removeEntity(Position position, Entity entity) {
         worldMap.remove(position, entity);
     }
 
-    public String getCellOfMap(Position position){
+    public String getCellOfMap(Position position) {
         return worldMap.get(position).toCell();
     }
 
-    public void fillEmptyMap(){
-        for (int columns = 1; columns <=getWidthOfMap(); columns++){
-            for (int rows = 1;rows<=getHeightOfMap();rows++){
-                addEntity(new Position(columns,rows),new EmptyCell());
+    public void fillEmptyMap() {
+        for (int columns = 1; columns <= getWidthOfMap(); columns++) {
+            for (int rows = 1; rows <= getHeightOfMap(); rows++) {
+                addEntity(new Position(columns, rows), new EmptyCell());
             }
         }
     }
 
-    public void generateRandomObjectsOnMap(){
+    public void generateRandomObjectsOnMap() {
         fillEmptyMap();
-        fillRandomEnvironmentOnMap();
-        fillRandomAnimalsOnMap();
+        fillRandomPredatorOnMap(5);
+        fillRandomHerbivoreOnMap(5);
+        fillRandomGrassOnMap(10);
+        fillRandomRockOnMap(7);
     }
 
-    public void fillRandomAnimalsOnMap(){
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 2; j++) {
-                int columns = random.nextInt(1,getWidthOfMap()+1);
-                int rows = random.nextInt(1,getHeightOfMap()+1);
-                if(j==0){
-                    worldMap.put(new Position(columns,rows), new Herbivore());
-                } else if (j==1) {
-                    worldMap.put(new Position(columns,rows), new Predator());
-                }
-            }
+    public void fillRandomHerbivoreOnMap(int number) {
+        for (int i = 0; i < number; i++) {
+            int columns = random.nextInt(1, getWidthOfMap() + 1);
+            int rows = random.nextInt(1, getHeightOfMap() + 1);
+            if (worldMap.get(new Position(columns, rows)) instanceof EmptyCell) {
+                worldMap.put(new Position(columns, rows), new Herbivore());
+            } else i--;
         }
     }
 
-    public void fillRandomEnvironmentOnMap(){
-        for (int i = 0; i < 7; i++) {
-            for (int j = 0; j < 2; j++) {
-                int columns = random.nextInt(1, getWidthOfMap() + 1);
-                int rows = random.nextInt(1, getHeightOfMap() + 1);
-                if (j == 0) {
-                    worldMap.put(new Position(columns, rows), new Grass());
-                } else if (j == 1) {
-                    worldMap.put(new Position(columns, rows), new Rock());
-                }
-            }
+    public void fillRandomPredatorOnMap(int number) {
+        for (int i = 0; i < number; i++) {
+            int columns = random.nextInt(1, getWidthOfMap() + 1);
+            int rows = random.nextInt(1, getHeightOfMap() + 1);
+            if (worldMap.get(new Position(columns, rows)) instanceof EmptyCell) {
+                worldMap.put(new Position(columns, rows), new Predator());
+            } else i--;
         }
     }
 
-    public void printWorldMap(){
-        for (int columns = 1; columns <=getWidthOfMap(); columns++){
+    public void fillRandomGrassOnMap(int number) {
+        for (int i = 0; i < number; i++) {
+            int columns = random.nextInt(1, getWidthOfMap() + 1);
+            int rows = random.nextInt(1, getHeightOfMap() + 1);
+            if (worldMap.get(new Position(columns, rows)) instanceof EmptyCell) {
+                worldMap.put(new Position(columns, rows), new Grass());
+            } else i--;
+        }
+    }
+    public void fillRandomRockOnMap(int number) {
+        for (int i = 0; i < number; i++) {
+            int columns = random.nextInt(1, getWidthOfMap() + 1);
+            int rows = random.nextInt(1, getHeightOfMap() + 1);
+            if (worldMap.get(new Position(columns, rows)) instanceof EmptyCell) {
+                worldMap.put(new Position(columns, rows), new Rock());
+            } else i--;
+        }
+    }
+
+
+
+
+    public void printWorldMap() {
+        for (int columns = 1; columns <= getWidthOfMap(); columns++) {
             System.out.println();
-            for (int rows = 1;rows<=getHeightOfMap();rows++){
+            for (int rows = 1; rows <= getHeightOfMap(); rows++) {
                 Position position = new Position(columns, rows);
                 System.out.print(worldMap.get(position).toCell() + " ");
             }
