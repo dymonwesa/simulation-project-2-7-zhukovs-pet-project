@@ -128,5 +128,52 @@ public class WorldMap {
             }
         }
     }
+
+
+    public HashMap<Position, Herbivore> getHerbivorePosition(){
+        HashMap<Position,Herbivore> HerbivorePositionMap = new HashMap<>();
+        for (int columns = 1; columns <= getWidthOfMap(); columns++) {
+            for (int rows = 1; rows <= getHeightOfMap(); rows++) {
+                if(worldMap.get(new Position(columns,rows)) instanceof Herbivore) {
+                HerbivorePositionMap.put(new Position(columns,rows),(Herbivore) worldMap.get(new Position(columns,rows)));
+                }
+            }
+        }
+        return HerbivorePositionMap;
+    }
+    public HashMap<Position, Predator> getPredatorPosition(){
+        HashMap<Position, Predator> PredatorPositionMap = new HashMap<>();
+        for (int columns = 1; columns <= getWidthOfMap(); columns++) {
+            for (int rows = 1; rows <= getHeightOfMap(); rows++) {
+                if(worldMap.get(new Position(columns,rows)) instanceof Predator) {
+                    PredatorPositionMap.put(new Position(columns,rows), (Predator) worldMap.get(new Position(columns,rows)));
+                }
+            }
+        }
+        return PredatorPositionMap;
+    }
+    public HashMap<Position, Grass> getGrassPosition(){
+        HashMap<Position, Grass> GrassPositionMap = new HashMap<>();
+        for (int columns = 1; columns <= getWidthOfMap(); columns++) {
+            for (int rows = 1; rows <= getHeightOfMap(); rows++) {
+                if(worldMap.get(new Position(columns,rows)) instanceof Grass) {
+                    GrassPositionMap.put(new Position(columns,rows), (Grass) worldMap.get(new Position(columns,rows)));
+                }
+            }
+        }
+        return GrassPositionMap;
+    }
+    public HashMap<Position, Rock> getRockPosition(){
+        HashMap<Position, Rock> RockPositionMap = new HashMap<>();
+        for (int columns = 1; columns <= getWidthOfMap(); columns++) {
+            for (int rows = 1; rows <= getHeightOfMap(); rows++) {
+                if(worldMap.get(new Position(columns,rows)) instanceof Rock) {
+                    RockPositionMap.put(new Position(columns,rows), (Rock) worldMap.get(new Position(columns,rows)));
+                }
+            }
+        }
+        return RockPositionMap;
+    }
+
 }
 
