@@ -8,14 +8,13 @@ import Entity.Environment.Grass;
 import Entity.Environment.Rock;
 import Position.Position;
 
-import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
 public class WorldMap {
 
-    private HashMap<Position, Entity> worldMap;
+    private HashMap<Position, Entity> cells;
     private int widthOfMap;
     private int heightOfMap;
     private int sizeOfMap;
@@ -23,7 +22,7 @@ public class WorldMap {
 
 
     public WorldMap(int widthOfMap, int heightOfMap) {
-        this.worldMap = new HashMap<Position, Entity>();
+        this.cells = new HashMap<Position, Entity>();
         this.widthOfMap = widthOfMap;
         this.heightOfMap = heightOfMap;
         this.sizeOfMap = widthOfMap * heightOfMap;
@@ -31,7 +30,7 @@ public class WorldMap {
     }
 
     public WorldMap() {
-        this.worldMap = new HashMap<Position, Entity>();
+        this.cells = new HashMap<Position, Entity>();
         this.widthOfMap = 25;
         this.heightOfMap = 25;
         this.sizeOfMap = 25 * 25;
@@ -52,15 +51,15 @@ public class WorldMap {
 
 
     public void addEntity(Position position, Entity entity) {
-        worldMap.put(position, entity);
+        cells.put(position, entity);
     }
 
     public void removeEntity(Position position, Entity entity) {
-        worldMap.remove(position, entity);
+        cells.remove(position, entity);
     }
 
     public String getCellOfMap(Position position) {
-        return worldMap.get(position).toCell();
+        return cells.get(position).toCell();
     }
 
     public void fillEmptyMap() {
@@ -70,6 +69,15 @@ public class WorldMap {
             }
         }
     }
+
+    public Entity getEntityAt(Position position){
+        return cells.get(position);
+    }
+
+    public void putEntityAt(Position position,Entity entity){
+        cells.put(position,entity);
+    }
+
 
     public void generateRandomObjectsOnMap() {
         fillEmptyMap();
@@ -83,8 +91,8 @@ public class WorldMap {
         for (int i = 0; i < number; i++) {
             int columns = random.nextInt(1, getWidthOfMap() + 1);
             int rows = random.nextInt(1, getHeightOfMap() + 1);
-            if (worldMap.get(new Position(columns, rows)) instanceof EmptyCell) {
-                worldMap.put(new Position(columns, rows), new Herbivore());
+            if (cells.get(new Position(columns, rows)) instanceof EmptyCell) {
+                cells.put(new Position(columns, rows), new Herbivore());
             } else i--;
         }
     }
@@ -93,8 +101,8 @@ public class WorldMap {
         for (int i = 0; i < number; i++) {
             int columns = random.nextInt(1, getWidthOfMap() + 1);
             int rows = random.nextInt(1, getHeightOfMap() + 1);
-            if (worldMap.get(new Position(columns, rows)) instanceof EmptyCell) {
-                worldMap.put(new Position(columns, rows), new Predator());
+            if (cells.get(new Position(columns, rows)) instanceof EmptyCell) {
+                cells.put(new Position(columns, rows), new Predator());
             } else i--;
         }
     }
@@ -103,8 +111,8 @@ public class WorldMap {
         for (int i = 0; i < number; i++) {
             int columns = random.nextInt(1, getWidthOfMap() + 1);
             int rows = random.nextInt(1, getHeightOfMap() + 1);
-            if (worldMap.get(new Position(columns, rows)) instanceof EmptyCell) {
-                worldMap.put(new Position(columns, rows), new Grass());
+            if (cells.get(new Position(columns, rows)) instanceof EmptyCell) {
+                cells.put(new Position(columns, rows), new Grass());
             } else i--;
         }
     }
@@ -112,8 +120,8 @@ public class WorldMap {
         for (int i = 0; i < number; i++) {
             int columns = random.nextInt(1, getWidthOfMap() + 1);
             int rows = random.nextInt(1, getHeightOfMap() + 1);
-            if (worldMap.get(new Position(columns, rows)) instanceof EmptyCell) {
-                worldMap.put(new Position(columns, rows), new Rock());
+            if (cells.get(new Position(columns, rows)) instanceof EmptyCell) {
+                cells.put(new Position(columns, rows), new Rock());
             } else i--;
         }
     }
@@ -126,7 +134,7 @@ public class WorldMap {
             System.out.println();
             for (int rows = 1; rows <= getHeightOfMap(); rows++) {
                 Position position = new Position(columns, rows);
-                System.out.print(worldMap.get(position).toCell() + " ");
+                System.out.print(cells.get(position).toCell() + " ");
             }
         }
     }
@@ -136,8 +144,8 @@ public class WorldMap {
         HashMap<Position,Herbivore> HerbivorePositionMap = new HashMap<>();
         for (int columns = 1; columns <= getWidthOfMap(); columns++) {
             for (int rows = 1; rows <= getHeightOfMap(); rows++) {
-                if(worldMap.get(new Position(columns,rows)) instanceof Herbivore) {
-                HerbivorePositionMap.put(new Position(columns,rows),(Herbivore) worldMap.get(new Position(columns,rows)));
+                if(cells.get(new Position(columns,rows)) instanceof Herbivore) {
+                HerbivorePositionMap.put(new Position(columns,rows),(Herbivore) cells.get(new Position(columns,rows)));
                 }
             }
         }
@@ -147,8 +155,8 @@ public class WorldMap {
         HashMap<Position, Predator> PredatorPositionMap = new HashMap<>();
         for (int columns = 1; columns <= getWidthOfMap(); columns++) {
             for (int rows = 1; rows <= getHeightOfMap(); rows++) {
-                if(worldMap.get(new Position(columns,rows)) instanceof Predator) {
-                    PredatorPositionMap.put(new Position(columns,rows), (Predator) worldMap.get(new Position(columns,rows)));
+                if(cells.get(new Position(columns,rows)) instanceof Predator) {
+                    PredatorPositionMap.put(new Position(columns,rows), (Predator) cells.get(new Position(columns,rows)));
                 }
             }
         }
@@ -158,8 +166,8 @@ public class WorldMap {
         HashMap<Position, Grass> GrassPositionMap = new HashMap<>();
         for (int columns = 1; columns <= getWidthOfMap(); columns++) {
             for (int rows = 1; rows <= getHeightOfMap(); rows++) {
-                if(worldMap.get(new Position(columns,rows)) instanceof Grass) {
-                    GrassPositionMap.put(new Position(columns,rows), (Grass) worldMap.get(new Position(columns,rows)));
+                if(cells.get(new Position(columns,rows)) instanceof Grass) {
+                    GrassPositionMap.put(new Position(columns,rows), (Grass) cells.get(new Position(columns,rows)));
                 }
             }
         }
@@ -169,8 +177,8 @@ public class WorldMap {
         HashMap<Position, Rock> RockPositionMap = new HashMap<>();
         for (int columns = 1; columns <= getWidthOfMap(); columns++) {
             for (int rows = 1; rows <= getHeightOfMap(); rows++) {
-                if(worldMap.get(new Position(columns,rows)) instanceof Rock) {
-                    RockPositionMap.put(new Position(columns,rows), (Rock) worldMap.get(new Position(columns,rows)));
+                if(cells.get(new Position(columns,rows)) instanceof Rock) {
+                    RockPositionMap.put(new Position(columns,rows), (Rock) cells.get(new Position(columns,rows)));
                 }
             }
         }
@@ -181,52 +189,14 @@ public class WorldMap {
         for (Map.Entry<Position, Herbivore> entry : getHerbivorePosition().entrySet()) {
             Position position = entry.getKey();
             Herbivore herbivore = entry.getValue();
-            if (doesAnotherCellExist(position)) {
-                Position newPosition = new Position(position.getX(),position.getY());
-                worldMap.put(position, new EmptyCell());
-                boolean running = true;
-                while (running) {
-                    int r = random.nextInt(4) + 1;
-                    switch (r) {
-                        case 1 -> newPosition.setX(newPosition.getX() + 1);
-                        case 2 -> newPosition.setY(newPosition.getY() + 1);
-                        case 3 -> newPosition.setX(newPosition.getX() - 1);
-                        case 4 -> newPosition.setY(newPosition.getY() - 1);
-                    }
-                   if (worldMap.get(newPosition) instanceof EmptyCell) {
-                        worldMap.put(newPosition, herbivore);
-                        running = false;
-                    } else if (worldMap.get(newPosition) instanceof Grass) {
-                        worldMap.put(newPosition, herbivore);
-                        herbivore.addTenHP();
-                        running = false;
-                       //System.out.println("Herbivore ate grass at " + newPosition.getX() + ", " + newPosition.getY());
-                   } else {
-                       newPosition.setX(position.getX());
-                       newPosition.setY(position.getY());
-                   }
-                }
-            }
+            herbivore.makeMove(this, position);
+
         }
     }
 
 
 
-        public boolean doesAnotherCellExist(Position position){
-        for (int i = 0; i < 4; i++){
-            Position newPosition = new Position(position.getX(),position.getY());
-            switch (i){
-                case 0->newPosition.setX(newPosition.getX()+1);
-                case 1->newPosition.setX(newPosition.getX()-1);
-                case 2->newPosition.setY(newPosition.getY()+1);
-                case 3->newPosition.setY(newPosition.getY()-1);
-            }
-            if (worldMap.get(newPosition)instanceof EmptyCell || worldMap.get(newPosition)instanceof Grass){
-                return true;
-            }
-        }
-        return false;
-        }
+
     }
 
 
