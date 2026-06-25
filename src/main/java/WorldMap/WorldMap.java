@@ -8,7 +8,9 @@ import Entity.Environment.Grass;
 import Entity.Environment.Rock;
 import Position.Position;
 
+import java.awt.*;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class WorldMap {
@@ -175,5 +177,59 @@ public class WorldMap {
         return RockPositionMap;
     }
 
-}
+    public void moveHerbivores() {
+        for (Map.Entry<Position, Herbivore> entry : getHerbivorePosition().entrySet()) {
+            Position position = entry.getKey();
+            Herbivore herbivore = entry.getValue();
+            if (doesAnotherCellExist(position)) {
+                Position newPosition = new Position(position.getX(),position.getY());
+                worldMap.put(position, new EmptyCell());
+                boolean running = true;
+                while (running) {
+                    int r = random.nextInt(4) + 1;
+                    switch (r) {
+                        case 1 -> newPosition.setX(newPosition.getX() + 1);
+                        case 2 -> newPosition.setY(newPosition.getY() + 1);
+                        case 3 -> newPosition.setX(newPosition.getX() - 1);
+                        case 4 -> newPosition.setY(newPosition.getY() - 1);
+                    }
+                   if (worldMap.get(newPosition) instanceof EmptyCell) {
+                        worldMap.put(newPosition, herbivore);
+                        running = false;
+                    } else if (worldMap.get(newPosition) instanceof Grass) {
+                        worldMap.put(newPosition, herbivore);
+                        herbivore.addTenHP();
+                        running = false;
+                       //System.out.println("Herbivore ate grass at " + newPosition.getX() + ", " + newPosition.getY());
+                   } else {
+                       newPosition.setX(position.getX());
+                       newPosition.setY(position.getY());
+                   }
+                }
+            }
+        }
+    }
+
+
+
+        public boolean doesAnotherCellExist(Position position){
+        for (int i = 0; i < 4; i++){
+            Position newPosition = new Position(position.getX(),position.getY());
+            switch (i){
+                case 0->newPosition.setX(newPosition.getX()+1);
+                case 1->newPosition.setX(newPosition.getX()-1);
+                case 2->newPosition.setY(newPosition.getY()+1);
+                case 3->newPosition.setY(newPosition.getY()-1);
+            }
+            if (worldMap.get(newPosition)instanceof EmptyCell || worldMap.get(newPosition)instanceof Grass){
+                return true;
+            }
+        }
+        return false;
+        }
+    }
+
+
+
+
 

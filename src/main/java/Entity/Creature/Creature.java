@@ -7,10 +7,6 @@ public class Creature extends Entity {
     private int speed;
 
 
-    public Creature() {
-        healPoint = 100;
-        speed = 0;
-    }
 
     public int getHealPoint() {
         return healPoint;
