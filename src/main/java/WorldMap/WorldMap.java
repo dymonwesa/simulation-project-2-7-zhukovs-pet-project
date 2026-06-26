@@ -141,15 +141,15 @@ public class WorldMap {
 
 
     public HashMap<Position, Herbivore> getHerbivorePosition(){
-        HashMap<Position,Herbivore> HerbivorePositionMap = new HashMap<>();
+        HashMap<Position,Herbivore> herbivorePositionMap = new HashMap<>();
         for (int columns = 1; columns <= getWidthOfMap(); columns++) {
             for (int rows = 1; rows <= getHeightOfMap(); rows++) {
                 if(cells.get(new Position(columns,rows)) instanceof Herbivore) {
-                HerbivorePositionMap.put(new Position(columns,rows),(Herbivore) cells.get(new Position(columns,rows)));
+                herbivorePositionMap.put(new Position(columns,rows),(Herbivore) cells.get(new Position(columns,rows)));
                 }
             }
         }
-        return HerbivorePositionMap;
+        return herbivorePositionMap;
     }
     public HashMap<Position, Predator> getPredatorPosition(){
         HashMap<Position, Predator> PredatorPositionMap = new HashMap<>();
