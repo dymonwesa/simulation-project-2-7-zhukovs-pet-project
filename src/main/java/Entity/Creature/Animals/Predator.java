@@ -15,7 +15,9 @@ public class Predator extends Creature {
     }
 
 
-
+    public void getAttack(Herbivore herbivore){
+        herbivore.
+    }
     public void getMove(){
 
     }

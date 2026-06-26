@@ -1,6 +1,10 @@
 package Entity.Creature;
 
 import Entity.Entity;
+import Entity.Environment.EmptyCell;
+import Entity.Environment.Grass;
+import Position.Position;
+import WorldMap.WorldMap;
 
 public class Creature extends Entity {
     private int healPoint;

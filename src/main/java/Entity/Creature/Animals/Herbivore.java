@@ -13,7 +13,7 @@ import java.util.Random;
 
 public class Herbivore extends Creature {
 
-    private int healPoint;
+    private int healPoint = 50;
 
     @Override
     public int getHealPoint() {
@@ -28,6 +28,10 @@ public class Herbivore extends Creature {
 
     public void addTenHP() {
         this.healPoint += 10;
+    }
+
+    public void minusThirtyHP(){
+        this.healPoint -=30;
     }
 
     public void makeMove(WorldMap worldMap, Position p) {
