@@ -15,28 +15,27 @@ public class Predator extends Creature {
     }
 
 
+
     public void getAttack(Herbivore herbivore){
-        herbivore.
+        herbivore.minusThirtyHP();
     }
     public void getMove(){
-
     }
 
     public Position getNearestHerbivore(Position predatorPosition, HashMap<Position,Herbivore> herbivorePositionMap){
         int firstX = predatorPosition.getX();
         int firstY = predatorPosition.getY();
-        int tempDistance = firstX * firstY;
+        int tempDistance = 10000;
         Position positionHerbivore = new Position(firstX,firstY);
         for(Map.Entry<Position, Herbivore> entry :herbivorePositionMap.entrySet()){
             int secondX = entry.getKey().getX();
             int secondY = entry.getKey().getY();
             int distance = Math.abs((firstX-secondX)*(firstY-secondY));
-            if (tempDistance<distance){
+            if (tempDistance>distance){
                 tempDistance = distance;
                 positionHerbivore = entry.getKey();
             }
         }
-        return positionHerbivore;
     }
 
 
