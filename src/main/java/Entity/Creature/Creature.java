@@ -8,10 +8,7 @@ import WorldMap.WorldMap;
 
 import java.io.PipedInputStream;
 import java.nio.file.attribute.PosixFileAttributes;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 
 public class Creature extends Entity {
     private int healPoint;
@@ -70,22 +67,22 @@ public class Creature extends Entity {
                 }
             }
         }
-        if (cameFrom.containsKey(targetPosition)){
-          Queue<Position> wayToStart = new LinkedList<>();
-          queue.add(targetPosition);
-          boolean running = true;
+        if (cameFrom.containsKey(targetPosition)) {
             Position tempPosition = targetPosition;
-            while(running){
-                if (cameFrom.get(tempPosition).equals(startPosition)){
-
+            while (true) {
+                if (cameFrom.get(tempPosition).equals(startPosition)) {
+                    return tempPosition;
                 }
-          }
+                tempPosition = cameFrom.get(tempPosition);
+            }
         } else {
-           return startPosition; //stand still
+            return startPosition; //stand still
         }
-
-        return null;
     }
+
+
+
+
 
 
 

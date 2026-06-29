@@ -36,6 +36,7 @@ public class Predator extends Creature {
                 positionHerbivore = entry.getKey();
             }
         }
+        return positionHerbivore;
     }
 
 
