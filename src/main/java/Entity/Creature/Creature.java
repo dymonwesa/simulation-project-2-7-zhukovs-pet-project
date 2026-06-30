@@ -52,7 +52,6 @@ public class Creature extends Entity {
         while (!queue.isEmpty()) {
             Position current = queue.poll();
             if (current.equals(targetPosition)) {
-
                 break;
             }
             Position[] positions = new Position[4];

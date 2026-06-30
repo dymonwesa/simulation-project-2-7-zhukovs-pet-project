@@ -25,7 +25,7 @@ public class Simulation {
             worldMap.moveHerbivores();
             worldMap.printWorldMap();
             try {
-                Thread.sleep(750); // 500 миллисекунд = 0.5 секунды
+                Thread.sleep(750);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
