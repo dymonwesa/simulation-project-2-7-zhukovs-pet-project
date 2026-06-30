@@ -70,15 +70,16 @@ public class WorldMap {
         }
     }
 
-    public Entity getEntityAt(Position position){
+    public Entity getEntityAt(Position position) {
         return cells.get(position);
     }
 
-    public void putEntityAt(Position position,Entity entity){
-        cells.put(position,entity);
+    public void putEntityAt(Position position, Entity entity) {
+        cells.put(position, entity);
     }
 
 
+    //FILLING MAP
     public void generateRandomObjectsOnMap() {
         fillEmptyMap();
         fillRandomPredatorOnMap(5);
@@ -116,6 +117,7 @@ public class WorldMap {
             } else i--;
         }
     }
+
     public void fillRandomRockOnMap(int number) {
         for (int i = 0; i < number; i++) {
             int columns = random.nextInt(1, getWidthOfMap() + 1);
@@ -127,8 +129,74 @@ public class WorldMap {
     }
 
 
+    //GET POSITION
+    public HashMap<Position, Herbivore> getHerbivorePosition() {
+        HashMap<Position, Herbivore> herbivorePositionMap = new HashMap<>();
+        for (int columns = 1; columns <= getWidthOfMap(); columns++) {
+            for (int rows = 1; rows <= getHeightOfMap(); rows++) {
+                if (cells.get(new Position(columns, rows)) instanceof Herbivore) {
+                    herbivorePositionMap.put(new Position(columns, rows), (Herbivore) cells.get(new Position(columns, rows)));
+                }
+            }
+        }
+        return herbivorePositionMap;
+    }
 
+    public HashMap<Position, Predator> getPredatorPosition() {
+        HashMap<Position, Predator> PredatorPositionMap = new HashMap<>();
+        for (int columns = 1; columns <= getWidthOfMap(); columns++) {
+            for (int rows = 1; rows <= getHeightOfMap(); rows++) {
+                if (cells.get(new Position(columns, rows)) instanceof Predator) {
+                    PredatorPositionMap.put(new Position(columns, rows), (Predator) cells.get(new Position(columns, rows)));
+                }
+            }
+        }
+        return PredatorPositionMap;
+    }
 
+    public HashMap<Position, Grass> getGrassPosition() {
+        HashMap<Position, Grass> GrassPositionMap = new HashMap<>();
+        for (int columns = 1; columns <= getWidthOfMap(); columns++) {
+            for (int rows = 1; rows <= getHeightOfMap(); rows++) {
+                if (cells.get(new Position(columns, rows)) instanceof Grass) {
+                    GrassPositionMap.put(new Position(columns, rows), (Grass) cells.get(new Position(columns, rows)));
+                }
+            }
+        }
+        return GrassPositionMap;
+    }
+
+    public HashMap<Position, Rock> getRockPosition() {
+        HashMap<Position, Rock> RockPositionMap = new HashMap<>();
+        for (int columns = 1; columns <= getWidthOfMap(); columns++) {
+            for (int rows = 1; rows <= getHeightOfMap(); rows++) {
+                if (cells.get(new Position(columns, rows)) instanceof Rock) {
+                    RockPositionMap.put(new Position(columns, rows), (Rock) cells.get(new Position(columns, rows)));
+                }
+            }
+        }
+        return RockPositionMap;
+    }
+
+    //MOVE ANIMALS
+    public void moveHerbivores() {
+        for (Map.Entry<Position, Herbivore> entry : getHerbivorePosition().entrySet()) {
+            Position position = entry.getKey();
+            Herbivore herbivore = entry.getValue();
+            herbivore.makeMove(this, position);
+
+        }
+    }
+
+    public void movePredators(){
+        for (Map.Entry<Position,Predator> entry : getPredatorPosition().entrySet()){
+            Position position = entry.getKey();
+            Predator predator = entry.getValue();
+            predator.makeMove(this, position);
+        }
+    }
+
+    //PRINT
     public void printWorldMap() {
         for (int columns = 1; columns <= getWidthOfMap(); columns++) {
             System.out.println();
@@ -140,64 +208,7 @@ public class WorldMap {
     }
 
 
-    public HashMap<Position, Herbivore> getHerbivorePosition(){
-        HashMap<Position,Herbivore> herbivorePositionMap = new HashMap<>();
-        for (int columns = 1; columns <= getWidthOfMap(); columns++) {
-            for (int rows = 1; rows <= getHeightOfMap(); rows++) {
-                if(cells.get(new Position(columns,rows)) instanceof Herbivore) {
-                herbivorePositionMap.put(new Position(columns,rows),(Herbivore) cells.get(new Position(columns,rows)));
-                }
-            }
-        }
-        return herbivorePositionMap;
-    }
-    public HashMap<Position, Predator> getPredatorPosition(){
-        HashMap<Position, Predator> PredatorPositionMap = new HashMap<>();
-        for (int columns = 1; columns <= getWidthOfMap(); columns++) {
-            for (int rows = 1; rows <= getHeightOfMap(); rows++) {
-                if(cells.get(new Position(columns,rows)) instanceof Predator) {
-                    PredatorPositionMap.put(new Position(columns,rows), (Predator) cells.get(new Position(columns,rows)));
-                }
-            }
-        }
-        return PredatorPositionMap;
-    }
-    public HashMap<Position, Grass> getGrassPosition(){
-        HashMap<Position, Grass> GrassPositionMap = new HashMap<>();
-        for (int columns = 1; columns <= getWidthOfMap(); columns++) {
-            for (int rows = 1; rows <= getHeightOfMap(); rows++) {
-                if(cells.get(new Position(columns,rows)) instanceof Grass) {
-                    GrassPositionMap.put(new Position(columns,rows), (Grass) cells.get(new Position(columns,rows)));
-                }
-            }
-        }
-        return GrassPositionMap;
-    }
-    public HashMap<Position, Rock> getRockPosition(){
-        HashMap<Position, Rock> RockPositionMap = new HashMap<>();
-        for (int columns = 1; columns <= getWidthOfMap(); columns++) {
-            for (int rows = 1; rows <= getHeightOfMap(); rows++) {
-                if(cells.get(new Position(columns,rows)) instanceof Rock) {
-                    RockPositionMap.put(new Position(columns,rows), (Rock) cells.get(new Position(columns,rows)));
-                }
-            }
-        }
-        return RockPositionMap;
-    }
-
-    public void moveHerbivores() {
-        for (Map.Entry<Position, Herbivore> entry : getHerbivorePosition().entrySet()) {
-            Position position = entry.getKey();
-            Herbivore herbivore = entry.getValue();
-            herbivore.makeMove(this, position);
-
-        }
-    }
-
-
-
-
-    }
+}
 
 
 

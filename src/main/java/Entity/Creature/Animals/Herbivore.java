@@ -33,7 +33,7 @@ public class Herbivore extends Creature {
     public void minusThirtyHP(){
         this.healPoint -=30;
     }
-
+    //нужно будет добавить доп метод для return nextPos
     public void makeMove(WorldMap worldMap, Position p) {
         Random random = new Random();
         Position position = new Position(p.getX(),p.getY());

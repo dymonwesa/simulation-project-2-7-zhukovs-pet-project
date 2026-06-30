@@ -23,6 +23,7 @@ public class Simulation {
                 System.out.println();
             }
             worldMap.moveHerbivores();
+
             worldMap.printWorldMap();
             try {
                 Thread.sleep(750);

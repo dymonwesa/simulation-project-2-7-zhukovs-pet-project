@@ -1,7 +1,9 @@
 package Entity.Creature.Animals;
 
 import Entity.Creature.Creature;
+import Entity.Environment.EmptyCell;
 import Position.Position;
+import WorldMap.WorldMap;
 
 import javax.print.attribute.HashDocAttributeSet;
 import java.util.HashMap;
@@ -19,7 +21,14 @@ public class Predator extends Creature {
     public void getAttack(Herbivore herbivore){
         herbivore.minusThirtyHP();
     }
-    public void getMove(){
+
+    public void makeMove(WorldMap worldMap, Position position){
+        Predator predator = (Predator) worldMap.getEntityAt(position);
+        Position nextPosition = getNextPosition(position, getNearestHerbivore(position, worldMap.getHerbivorePosition()), worldMap);
+        if(!nextPosition.equals(position)){
+            worldMap.putEntityAt(nextPosition, predator);
+            worldMap.putEntityAt(position, new EmptyCell());
+        }
     }
 
     public Position getNearestHerbivore(Position predatorPosition, HashMap<Position,Herbivore> herbivorePositionMap){
@@ -38,6 +47,11 @@ public class Predator extends Creature {
         }
         return positionHerbivore;
     }
+
+    public void tryToKill(){
+
+    }
+
 
 
 
