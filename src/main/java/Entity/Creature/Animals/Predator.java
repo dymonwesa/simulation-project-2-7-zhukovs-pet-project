@@ -1,6 +1,7 @@
 package Entity.Creature.Animals;
 
 import Entity.Creature.Creature;
+import Entity.Entity;
 import Entity.Environment.EmptyCell;
 import Position.Position;
 import WorldMap.WorldMap;
@@ -21,62 +22,79 @@ public class Predator extends Creature {
         herbivore.minusThirtyHP();
     }
 
-
     public Herbivore findVictim(Position position, WorldMap worldMap) {
-        for (int i = 1; i < 9; i++) {
-            switch (i) {
-                case 1:
-                    Position tempPosition = new Position(position.getX(), position.getY() + 1);
-                    if (worldMap.getEntityAt(tempPosition) instanceof Herbivore) {
-                        return (Herbivore) worldMap.getEntityAt(tempPosition);
-                    }
-                    break;
-                case 2:
-                    tempPosition = new Position(position.getX() + 1, position.getY() + 1);
-                    if (worldMap.getEntityAt(tempPosition) instanceof Herbivore) {
-                        return (Herbivore) worldMap.getEntityAt(tempPosition);
-                    }
-                    break;
-                case 3:
-                    tempPosition = new Position(position.getX() + 1, position.getY());
-                    if (worldMap.getEntityAt(tempPosition) instanceof Herbivore) {
-                        return (Herbivore) worldMap.getEntityAt(tempPosition);
-                    }
-                    break;
-                case 4:
-                    tempPosition = new Position(position.getX() + 1, position.getY() - 1);
-                    if (worldMap.getEntityAt(tempPosition) instanceof Herbivore) {
-                        return (Herbivore) worldMap.getEntityAt(tempPosition);
-                    }
-                    break;
-                case 5:
-                    tempPosition = new Position(position.getX(), position.getY() - 1);
-                    if (worldMap.getEntityAt(tempPosition) instanceof Herbivore) {
-                        return (Herbivore) worldMap.getEntityAt(tempPosition);
-                    }
-                    break;
-                case 6:
-                    tempPosition = new Position(position.getX() - 1, position.getY() - 1);
-                    if (worldMap.getEntityAt(tempPosition) instanceof Herbivore) {
-                        return (Herbivore) worldMap.getEntityAt(tempPosition);
-                    }
-                    break;
-                case 7:
-                    tempPosition = new Position(position.getX() - 1, position.getY());
-                    if (worldMap.getEntityAt(tempPosition) instanceof Herbivore) {
-                        return (Herbivore) worldMap.getEntityAt(tempPosition);
-                    }
-                    break;
-                case 8:
-                    tempPosition = new Position(position.getX() - 1, position.getY() + 1);
-                    if (worldMap.getEntityAt(tempPosition) instanceof Herbivore) {
-                        return (Herbivore) worldMap.getEntityAt(tempPosition);
-                    }
-                    break;
+        Position[] positions = {
+                new Position(position.getX(), position.getY() + 1),new Position(position.getX() + 1, position.getY() + 1),
+                new Position(position.getX() + 1, position.getY()),new Position(position.getX() + 1, position.getY() - 1),
+                new Position(position.getX(), position.getY() - 1),new Position(position.getX() - 1, position.getY() - 1),
+                new Position(position.getX() - 1, position.getY()), new Position(position.getX() - 1, position.getY() + 1)};
+
+        for (Position p : positions) {
+            Entity entity = worldMap.getEntityAt(p);
+            if(entity instanceof Herbivore){
+                return (Herbivore) entity;
             }
         }
         return null;
+
     }
+
+
+//    public Herbivore findVictim(Position position, WorldMap worldMap) {
+//        for (int i = 1; i < 9; i++) {
+//            switch (i) {
+//                case 1:
+//                    Position tempPosition = new Position(position.getX(), position.getY() + 1);
+//                    if (worldMap.getEntityAt(tempPosition) instanceof Herbivore) {
+//                        return (Herbivore) worldMap.getEntityAt(tempPosition);
+//                    }
+//                    break;
+//                case 2:
+//                    tempPosition = new Position(position.getX() + 1, position.getY() + 1);
+//                    if (worldMap.getEntityAt(tempPosition) instanceof Herbivore) {
+//                        return (Herbivore) worldMap.getEntityAt(tempPosition);
+//                    }
+//                    break;
+//                case 3:
+//                    tempPosition = new Position(position.getX() + 1, position.getY());
+//                    if (worldMap.getEntityAt(tempPosition) instanceof Herbivore) {
+//                        return (Herbivore) worldMap.getEntityAt(tempPosition);
+//                    }
+//                    break;
+//                case 4:
+//                    tempPosition = new Position(position.getX() + 1, position.getY() - 1);
+//                    if (worldMap.getEntityAt(tempPosition) instanceof Herbivore) {
+//                        return (Herbivore) worldMap.getEntityAt(tempPosition);
+//                    }
+//                    break;
+//                case 5:
+//                    tempPosition = new Position(position.getX(), position.getY() - 1);
+//                    if (worldMap.getEntityAt(tempPosition) instanceof Herbivore) {
+//                        return (Herbivore) worldMap.getEntityAt(tempPosition);
+//                    }
+//                    break;
+//                case 6:
+//                    tempPosition = new Position(position.getX() - 1, position.getY() - 1);
+//                    if (worldMap.getEntityAt(tempPosition) instanceof Herbivore) {
+//                        return (Herbivore) worldMap.getEntityAt(tempPosition);
+//                    }
+//                    break;
+//                case 7:
+//                    tempPosition = new Position(position.getX() - 1, position.getY());
+//                    if (worldMap.getEntityAt(tempPosition) instanceof Herbivore) {
+//                        return (Herbivore) worldMap.getEntityAt(tempPosition);
+//                    }
+//                    break;
+//                case 8:
+//                    tempPosition = new Position(position.getX() - 1, position.getY() + 1);
+//                    if (worldMap.getEntityAt(tempPosition) instanceof Herbivore) {
+//                        return (Herbivore) worldMap.getEntityAt(tempPosition);
+//                    }
+//                    break;
+//            }
+//        }
+//        return null;
+//    }
 
 
     public void makeMove(Position position, WorldMap worldMap) {
