@@ -22,7 +22,7 @@ public class Predator extends Creature {
         herbivore.minusThirtyHP();
     }
 
-    public void makeMove(WorldMap worldMap, Position position){
+    public void makeMove(Position position, WorldMap worldMap){
         Predator predator = (Predator) worldMap.getEntityAt(position);
         Position nextPosition = getNextPosition(position, getNearestHerbivore(position, worldMap.getHerbivorePosition()), worldMap);
         if(!nextPosition.equals(position)){

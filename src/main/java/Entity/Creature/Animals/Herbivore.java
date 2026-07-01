@@ -30,19 +30,17 @@ public class Herbivore extends Creature {
         this.healPoint += 10;
     }
 
-    public void minusThirtyHP(){
-        this.healPoint -=30;
+    public void minusThirtyHP() {
+        this.healPoint -= 30;
     }
-    //нужно будет добавить доп метод для return nextPos
-    public void makeMove(WorldMap worldMap, Position p) {
+
+    public Position getNextPosition(Position p, WorldMap worldMap) {
         Random random = new Random();
-        Position position = new Position(p.getX(),p.getY());
+        Position position = new Position(p.getX(), p.getY());
         Herbivore herbivore = (Herbivore) worldMap.getEntityAt(position);
         if (doesAnotherCellExist(worldMap, position)) {
             Position newPosition = new Position(position.getX(), position.getY());
-            worldMap.putEntityAt(position, new EmptyCell());
-            boolean running = true;
-            while (running) {
+            while (true) {
                 int r = random.nextInt(4) + 1;
                 switch (r) {
                     case 1 -> newPosition.setX(newPosition.getX() + 1);
@@ -50,24 +48,33 @@ public class Herbivore extends Creature {
                     case 3 -> newPosition.setX(newPosition.getX() - 1);
                     case 4 -> newPosition.setY(newPosition.getY() - 1);
                 }
-                if (worldMap.getEntityAt(newPosition) instanceof EmptyCell) {
-                    worldMap.putEntityAt(newPosition, herbivore);
-                    running = false;
-                } else if (worldMap.getEntityAt(newPosition) instanceof Grass) {
-                    worldMap.putEntityAt(newPosition, herbivore);
-                    herbivore.addTenHP();
-                    running = false;
-                    //System.out.println("Herbivore ate grass at " + newPosition.getX() + ", " + newPosition.getY());
-                } else {
-                    newPosition.setX(position.getX());
-                    newPosition.setY(position.getY());
+                if (worldMap.getEntityAt(newPosition) instanceof EmptyCell || worldMap.getEntityAt(newPosition) instanceof Grass) {
+                    return newPosition;
+                    //worldMap.putEntityAt(newPosition, herbivore);
+                //worldMap.putEntityAt(position, new EmptyCell());
                 }
             }
         }
+        return p;
+
+    }
+
+    //нужно будет добавить доп метод для return nextPos
+    public void makeMove(Position position, WorldMap worldMap) {
+        Position nextPosition = getNextPosition(position,worldMap);
+        if (!nextPosition.equals(position)){
+            if(worldMap.getEntityAt(nextPosition) instanceof Grass){
+                worldMap.putEntityAt(position,new EmptyCell());
+                worldMap.putEntityAt(nextPosition,this);
+            } else if (worldMap.getEntityAt(nextPosition)instanceof EmptyCell)
+                worldMap.putEntityAt(position,new EmptyCell());
+                worldMap.putEntityAt(nextPosition,this);
+                this.addTenHP();
         }
+    }
 
 
-    public boolean doesAnotherCellExist (WorldMap worldMap, Position position){
+    public boolean doesAnotherCellExist(WorldMap worldMap, Position position) {
         for (int i = 0; i < 4; i++) {
             Position newPosition = new Position(position.getX(), position.getY());
             switch (i) {
@@ -84,10 +91,10 @@ public class Herbivore extends Creature {
     }
 
 
-        @Override
-        public String toCell () {
-            return "🐇 ";
-        }
-
+    @Override
+    public String toCell() {
+        return "🐇 ";
     }
+
+}
 

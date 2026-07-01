@@ -183,7 +183,7 @@ public class WorldMap {
         for (Map.Entry<Position, Herbivore> entry : getHerbivorePosition().entrySet()) {
             Position position = entry.getKey();
             Herbivore herbivore = entry.getValue();
-            herbivore.makeMove(this, position);
+            herbivore.makeMove(position, this);
 
         }
     }
@@ -192,7 +192,7 @@ public class WorldMap {
         for (Map.Entry<Position,Predator> entry : getPredatorPosition().entrySet()){
             Position position = entry.getKey();
             Predator predator = entry.getValue();
-            predator.makeMove(this, position);
+            predator.makeMove(position, this);
         }
     }
 
